@@ -1,0 +1,4 @@
+ /*
+  * ctoCommunication
+  * http://www.contao.org/de/extension-list/view/ctoCommunication.html
+  */
