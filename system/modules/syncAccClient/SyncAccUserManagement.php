@@ -133,26 +133,25 @@ class SyncAccUserManagement extends Backend
             }
         }
 
-        $objAcc = $this->Database
-                ->prepare("SELECT id, username FROM `tl_$strAccType` WHERE syncacc = 1 AND sync_acc_master = ?")
-                ->execute($serverID);
-
-        $arrClientAcc = array();
-        while ($objAcc->next())
-        {
-            $arrClientAcc[$objAcc->username] = "'" . $objAcc->id . "'";
-        }
-
-        foreach ($arrAccData['data'] AS $arrAcc)
-        {
-            unset($arrClientAcc[$arrAcc['username']]);
-        }
-
-        if (count($arrClientAcc) > 0)
+    }
+    
+    public function deleteUsers($arrUsers)
+    {
+        foreach ($arrUsers as $value)
         {
             $this->Database
-                    ->prepare("DELETE FROM `tl_$strAccType` WHERE id IN (" . implode(',', $arrClientAcc) . ")")
-                    ->execute();
+                    ->prepare("DELETE FROM `tl_user` WHERE username=?")
+                    ->execute($value['username'], $value['email']);
+        }
+    }
+    
+    public function deleteMembers($arrMembers)
+    {
+        foreach ($arrMembers as $value)
+        {
+            $this->Database
+                    ->prepare("DELETE FROM `tl_member` WHERE username=?")
+                    ->execute($value['username'], $value['email']);
         }
     }
 

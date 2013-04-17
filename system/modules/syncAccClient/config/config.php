@@ -22,7 +22,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_USERGROUP"] = array(
     "parameter" => FALSE,
 );
 
-// Get User Group
+// Get Member Group
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_MEMBERGROUP"] = array(
     "class" => "SyncAccGroupManagement",
     "function" => "getMemberGroups",
@@ -54,12 +54,28 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_USERS"] = array(
     "parameter" => array('user'),
 );
 
+// Delete Users
+$GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_DELETE_USERS"] = array(
+    "class" => "SyncAccUserManagement",
+    "function" => "deleteUsers",
+    "typ" => "POST",
+    "parameter" => array('users'),
+);
+
 // Set Member
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_MEMBERS"] = array(
     "class" => "SyncAccUserManagement",
     "function" => "setMembers",
     "typ" => "POST",
     "parameter" => array('member'),
+);
+
+// Delete Member
+$GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_DELETE_MEMBERS"] = array(
+    "class" => "SyncAccUserManagement",
+    "function" => "deleteMembers",
+    "typ" => "POST",
+    "parameter" => array('members'),
 );
 
 // Define all fields which whould synchronised
