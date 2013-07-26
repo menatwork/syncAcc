@@ -20,7 +20,7 @@ $GLOBALS['TL_DCA']['tl_user']['config']['onload_callback'][] = array('tl_user_sy
  */
 $GLOBALS['TL_DCA']['tl_user']['list']['label']['label_callback'] = array('tl_user_syncAccClient', 'addIconExt');
 
-class tl_user_syncAccClient extends tl_user
+class tl_user_syncAccClient extends \tl_user
 {
 
     /**

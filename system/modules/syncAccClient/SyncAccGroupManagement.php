@@ -9,7 +9,7 @@
  * @license    GNU/LGPL
  * @filesource
  */
-class SyncAccGroupManagement extends Backend
+class SyncAccGroupManagement extends \Backend
 {
 
     public function __construct()

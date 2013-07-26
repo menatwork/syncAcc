@@ -23,7 +23,7 @@ if(TL_MODE == 'BE')
  */
 $GLOBALS['TL_DCA']['tl_member']['list']['label']['label_callback'] = array('tl_member_syncAccClient', 'addIconExt');
 
-class tl_member_syncAccClient extends tl_member
+class tl_member_syncAccClient extends \tl_member
 {
 
     /**

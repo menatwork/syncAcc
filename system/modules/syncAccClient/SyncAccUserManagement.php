@@ -9,7 +9,7 @@
  * @license    GNU/LGPL
  * @filesource
  */
-class SyncAccUserManagement extends Backend
+class SyncAccUserManagement extends \Backend
 {
 
     private $arrDefaultUserFields = array();

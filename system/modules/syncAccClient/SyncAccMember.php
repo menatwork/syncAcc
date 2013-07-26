@@ -10,7 +10,7 @@
  * @filesource
  */
 
-class SyncAccMember extends Backend {
+class SyncAccMember extends \Backend {
     
 }
 
