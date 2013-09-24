@@ -6,14 +6,14 @@
 	"license":"LGPL-3.0+",
 	"authors":[
 		{
-			"name":"Andreas Isaak",
-			"email":"isaak@men-at-work.de",
-			"homepage":"http://www.men-at-work.de",
+			"name": "Andreas Isaak",
+			"email": "contao@men-at-work.de",
+			"homepage": "http://www.men-at-work.de",
 			"role":"Project leader"
 		},
 		{
 			"name":"Stefan Heimes",
-			"email":"heimes@men-at-work.de",
+			"email":"contao@men-at-work.de",
 			"homepage":"http://www.men-at-work.de",
 			"role":"Developer"
 		}
@@ -23,15 +23,12 @@
 		"contao/core":">=2.11",
 		"menatwork/ctocommunication":">=1.2.0"
 	},
-	"autoload":{
-		"classmap":["system/"]
-	},
 	"replace": {
 		"contao-legacy/syncacc": "*"
 	},
-	"extra":{
+	"extra": {
 		"contao": {
-			"symlinks":{
+			"sources": {
 				"system/modules/syncAccClient": "system/modules/syncAccClient"
 			}
 		}
