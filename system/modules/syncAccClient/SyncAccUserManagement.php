@@ -2,17 +2,18 @@
 
 /**
  * Contao Open Source CMS
-
  * PHP version 5
+ *
  * @copyright  MEN AT WORK 2011
  * @package    syncAccClient
  * @license    GNU/LGPL
  * @filesource
  */
-class SyncAccUserManagement extends \Backend
+
+class SyncAccUserManagement extends Backend
 {
 
-    private $arrDefaultUserFields = array();
+    protected  $arrDefaultUserFields = array();
 
     /**
      * Initialize the object
@@ -20,7 +21,6 @@ class SyncAccUserManagement extends \Backend
     public function __construct()
     {
         parent::__construct();
-
         $this->arrDefaultUserFields = array(
             'language'   => $GLOBALS['TL_LANGUAGE'],
             'showHelp'   => 1,
@@ -35,127 +35,121 @@ class SyncAccUserManagement extends \Backend
 
     /**
      * Create associative database array from all users and return it
-     * 
+     *
      * @return array
      */
     public function getUsers()
     {
-        return $this->Database
-                        ->prepare("SELECT * FROM `tl_user`")
-                        ->execute()
-                        ->fetchAllAssoc();
+        $arrUsers = array();
+
+        $objDb    = $this->Database->prepare("SELECT * FROM `tl_user`")->execute();
+        $arrUsers = $objDb->fetchAllAssoc();
+
+        return $arrUsers;
     }
 
     /**
      * Set and update the users array
-     * 
-     * @param array $arrUsers 
+     *
+     * @param array $arrUsers
      */
-    public function setUsers($arrUsers)
+    public function setUsers($arrUsers, $singleUpdate = false)
     {
-        $this->setAccData('user', $arrUsers, $this->arrDefaultUserFields);
+        $this->setAccData('user', $arrUsers, $this->arrDefaultUserFields, $singleUpdate);
     }
 
     /**
      * Create associative database array from all members and return it
-     * 
+     *
      * @return array
      */
     public function getMembers()
     {
-        return $this->Database
-                        ->prepare("SELECT * FROM `tl_member`")
-                        ->execute()
-                        ->fetchAllAssoc();
+        $arrUsers = array();
+
+        $objDb    = $this->Database->prepare("SELECT * FROM `tl_member`")->execute();
+        $arrUsers = $objDb->fetchAllAssoc();
+
+        return $arrUsers;
     }
 
     /**
      * Set and update the members array
-     * 
-     * @param type $arrMembers 
+     *
+     * @param type $arrMembers
      */
-    public function setMembers($arrMembers)
+    public function setMembers($arrMembers, $singleUpdate = false)
     {
-        $this->setAccData('member', $arrMembers);
+        $this->setAccData('member', $arrMembers, false, $singleUpdate);
     }
 
     /**
      * Set and update the given account information into the database and
-     * delete all accounts which are not more needed 
-     * 
+     * delete all accounts which are not more needed
+     *
      * @param string $strAccType
-     * @param array $arrAccData 
+     * @param array  $arrAccData
      */
-    protected function setAccData($strAccType, $arrAccData, $default = FALSE)
+    protected function setAccData($strAccType, $arrAccData, $default = false, $singleUpdate = false)
     {
-        $serverID = base64_decode($arrAccData['meta']['sync_acc_master']);
+       $serverID = base64_decode($arrAccData['meta']['sync_acc_master']);
 
-        $arrAccFromOtherMasterSystems = $this->Database
-                ->prepare("
-                    SELECT * 
+        $arrAccFromOtherMasterSystems = \Database::getInstance()
+            ->prepare("
+                    SELECT *
                     FROM `tl_user`
-                    WHERE sync_acc_master 
+                    WHERE sync_acc_master
                     NOT IN ('',?)")
-                ->execute($serverID)
-                ->fetchAllAssoc();
+            ->execute($serverID)
+            ->fetchAllAssoc();
 
-        foreach ($arrAccData['data'] AS $arrAcc)
-        {
+        foreach ($arrAccData['data'] AS $arrAcc) {
             $arrAcc['sync_acc_master'] = $serverID;
-            $arrAcc['syncacc']         = TRUE;
+            $arrAcc['syncacc']         = true;
 
             $arrUpdateQuery = array();
-            foreach ($arrAcc AS $field => $value)
-            {
+            foreach ($arrAcc AS $field => $value) {
                 $arrUpdateQuery[] = " $field = '$value' ";
             }
 
-            if ($default)
-            {
+            if ($default) {
                 $arrAcc = array_merge($default, $arrAcc);
             }
 
-            $boolUpdateInsert = TRUE;
-            foreach ($arrAccFromOtherMasterSystems AS $arrFOMSAcc)
-            {
-                if ($arrAcc['username'] == $arrFOMSAcc['username'] && $arrAcc['email'] == $arrFOMSAcc['email'])
-                {
-                    $boolUpdateInsert = FALSE;
+            $boolUpdateInsert = true;
+            foreach ($arrAccFromOtherMasterSystems AS $arrFOMSAcc) {
+                if ($arrAcc['username'] == $arrFOMSAcc['username'] && $arrAcc['email'] == $arrFOMSAcc['email']) {
+                    $boolUpdateInsert = false;
                 }
             }
 
-            if ($boolUpdateInsert)
-            {
-                $test = $this->Database
-                        ->prepare("INSERT INTO `tl_$strAccType` %s ON DUPLICATE KEY UPDATE " . implode(', ', $arrUpdateQuery))
-                        ->set($arrAcc)
-                        ->execute();
+            if ($boolUpdateInsert) {
+                $test = \Database::getInstance()
+                    ->prepare("INSERT INTO `tl_$strAccType` %s ON DUPLICATE KEY UPDATE " . implode(', ',
+                            $arrUpdateQuery))
+                    ->set($arrAcc)
+                    ->execute();
             }
         }
 
-        $objAcc = $this->Database
-                ->prepare("SELECT id, username FROM `tl_$strAccType` WHERE syncacc = 1 AND sync_acc_master = ?")
-                ->execute($serverID);
+        $objAcc = \Database::getInstance()
+            ->prepare("SELECT id, username FROM `tl_$strAccType` WHERE syncacc = 1 AND sync_acc_master = ?")
+            ->execute($serverID);
 
         $arrClientAcc = array();
-        while ($objAcc->next())
-        {
+        while ($objAcc->next()) {
             $arrClientAcc[$objAcc->username] = "'" . $objAcc->id . "'";
         }
 
-        foreach ($arrAccData['data'] AS $arrAcc)
-        {
+        foreach ($arrAccData['data'] AS $arrAcc) {
             unset($arrClientAcc[$arrAcc['username']]);
         }
 
-        if (count($arrClientAcc) > 0)
-        {
-            $this->Database
-                    ->prepare("DELETE FROM `tl_$strAccType` WHERE id IN (" . implode(',', $arrClientAcc) . ")")
-                    ->execute();
+		// Only run this for the big update.
+        if ($singleUpdate == false && count($arrClientAcc) > 0) {
+            \Database::getInstance()
+                ->prepare("DELETE FROM `tl_$strAccType` WHERE id IN (" . implode(',', $arrClientAcc) . ")")
+                ->execute();
         }
     }
-
 }
-
-?>

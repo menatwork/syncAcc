@@ -23,7 +23,7 @@ if(TL_MODE == 'BE')
  */
 $GLOBALS['TL_DCA']['tl_member']['list']['label']['label_callback'] = array('tl_member_syncAccClient', 'addIconExt');
 
-class tl_member_syncAccClient extends \tl_member
+class tl_member_syncAccClient extends tl_member
 {
 
     /**
@@ -38,20 +38,36 @@ class tl_member_syncAccClient extends \tl_member
                 ->execute($dc->id);
 
         if ($objMember->syncacc == TRUE)
-        {
-            $arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
-            foreach ($arrDisableFields AS $field)
-            {
-                foreach ($GLOBALS['TL_DCA']['tl_member']['palettes'] AS $key => $palette)
-                {
-                    if (gettype($GLOBALS['TL_DCA']['tl_member']['palettes'][$key]) == 'string')
-                    {
-                        $GLOBALS['TL_DCA']['tl_member']['palettes'][$key] = str_replace(',' . $field, '', $GLOBALS['TL_DCA']['tl_member']['palettes'][$key]);
-                    }
-                }
-            }
+        {	
+			$this->setSessionInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
+			
+			$backendUser = BackendUser::getInstance();
+            $backendUser->authenticate();
+		
+            if(!empty($GLOBALS['SyncAcc']['sa']) && in_array($backendUser->id, $GLOBALS['SyncAcc']['sa'])){
+				$this->setSessionInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync_sa']);
+			} else {
+				$arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
+				foreach ($arrDisableFields AS $field) {
+					$GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
+				}
+			}
         }
     }
+	
+	public function setSessionInfo($strMsg)
+    {
+        // Check if we have a array or not
+        if (is_array($_SESSION["TL_INFO"]))
+        {
+            $_SESSION["TL_INFO"] = array_merge($_SESSION["TL_INFO"], array($strMsg));
+        }
+        else
+        {
+            $_SESSION["TL_INFO"][] = $strMsg;
+        }
+    }
+
 
     /**
      * Add an image to each record

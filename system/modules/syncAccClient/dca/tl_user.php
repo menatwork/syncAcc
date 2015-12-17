@@ -20,7 +20,7 @@ $GLOBALS['TL_DCA']['tl_user']['config']['onload_callback'][] = array('tl_user_sy
  */
 $GLOBALS['TL_DCA']['tl_user']['list']['label']['label_callback'] = array('tl_user_syncAccClient', 'addIconExt');
 
-class tl_user_syncAccClient extends \tl_user
+class tl_user_syncAccClient extends tl_user
 {
 
     /**
@@ -38,13 +38,9 @@ class tl_user_syncAccClient extends \tl_user
         {
             $arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['user'];
             foreach ($arrDisableFields AS $field)
-                foreach ($GLOBALS['TL_DCA']['tl_user']['palettes'] AS $key => $palette)
-                {
-                    if (gettype($GLOBALS['TL_DCA']['tl_user']['palettes'][$key]) == 'string')
-                    {
-                        $GLOBALS['TL_DCA']['tl_user']['palettes'][$key] = str_replace(',' . $field, '', $GLOBALS['TL_DCA']['tl_user']['palettes'][$key]);
-                    }
-                }
+			{
+                 $GLOBALS['TL_DCA']['tl_user']['fields'][$field]['eval']['readonly'] = true;
+			}
         }
     }
 

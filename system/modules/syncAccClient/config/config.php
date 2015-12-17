@@ -2,18 +2,23 @@
 
 /**
  * Contao Open Source CMS
- * 
+ *
  * PHP version 5
  * @copyright  MEN AT WORK 2013
  * @package    syncAccClient
  * @license    GNU/LGPL
  * @filesource
  */
+ 
+
+/**
+ * Hooks
+ */
+$GLOBALS['TL_HOOKS']['checkCredentials'][] = array('ExtendedLogin', 'checkPassword');
 
 /**
  * CtoCommunication RPC Calls
  */
-
 // Get User Group
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_USERGROUP"] = array(
     "class" => "SyncAccGroupManagement",
@@ -22,7 +27,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_USERGROUP"] = array(
     "parameter" => FALSE,
 );
 
-// Get Member Group
+// Get User Group
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_MEMBERGROUP"] = array(
     "class" => "SyncAccGroupManagement",
     "function" => "getMemberGroups",
@@ -51,7 +56,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_USERS"] = array(
     "class" => "SyncAccUserManagement",
     "function" => "setUsers",
     "typ" => "POST",
-    "parameter" => array('user'),
+    "parameter" => array('user', 'singleUpdate'),
 );
 
 // Delete Users
@@ -67,7 +72,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_MEMBERS"] = array(
     "class" => "SyncAccUserManagement",
     "function" => "setMembers",
     "typ" => "POST",
-    "parameter" => array('member'),
+    "parameter" => array('member', 'singleUpdate'),
 );
 
 // Delete Member
@@ -101,5 +106,3 @@ $GLOBALS['SYNCACC']['SYNC_FIELDS'] = array(
         'locked'
     )
 );
-
-?>

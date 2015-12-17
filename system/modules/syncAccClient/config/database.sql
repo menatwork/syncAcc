@@ -16,7 +16,8 @@
 CREATE TABLE `tl_member` (
   `syncacc` char(1) NOT NULL default '',
   `sync_acc_master` varchar(255) NOT NULL default '',
-  UNIQUE KEY `username` (`username`)
+  `password` varchar(128) NOT NULL default '',
+  UNIQUE KEY `username` (`username`, `email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -28,5 +29,6 @@ CREATE TABLE `tl_member` (
 CREATE TABLE `tl_user` (
   `syncacc` char(1) NOT NULL default '',
   `sync_acc_master` varchar(255) NOT NULL default '',
-  UNIQUE KEY `username` (`username`)
+  `password` varchar(128) NOT NULL default '',
+  UNIQUE KEY `username` (`username`, `email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
