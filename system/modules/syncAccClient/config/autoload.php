@@ -16,7 +16,10 @@
  */
 ClassLoader::addClasses(array
 (
-	'SyncAccMember'          => 'system/modules/syncAccClient/SyncAccMember.php',
-	'SyncAccUserManagement'  => 'system/modules/syncAccClient/SyncAccUserManagement.php',
-	'SyncAccGroupManagement' => 'system/modules/syncAccClient/SyncAccGroupManagement.php',
+    // Contao - Table
+    'SyncAcc\Client\Contao\Table\Member' => 'system/modules/syncAccClient/src/SyncAcc/Client/Contao/Table/Member.php',
+    'SyncAcc\Client\Contao\Table\User'   => 'system/modules/syncAccClient/src/SyncAcc/Client/Contao/Table/User.php',
+    // Management
+    'SyncAcc\Client\Management\User'     => 'system/modules/syncAccClient/src/SyncAcc/Client/Management/User.php',
+    'SyncAcc\Client\Management\Group'    => 'system/modules/syncAccClient/src/SyncAcc/Client/Management/Group.php'
 ));
