@@ -1,7 +1,7 @@
 {
 	"name":"menatwork/syncacc",
 	"description":"Synchronize user and member",
-	"keywords":["synchronization", "communication", "framework"],
+	"keywords":["synchronization","communication","framework"],
 	"type":"contao-module",
 	"license":"LGPL-3.0+",
 	"authors":[
@@ -9,7 +9,7 @@
 			"name":"Andreas Isaak",
 			"email":"isaak@men-at-work.de",
 			"homepage":"http://www.men-at-work.de",
-			"role":"Project leader"
+			"role":"Developer"
 		},
 		{
 			"name":"Stefan Heimes",
@@ -20,19 +20,19 @@
 	],
 	"require":{
 		"php":">=5.3",
-		"contao/core":">=2.11",
-		"menatwork/ctocommunication":">=1.2.0"
+		"contao/core":">=2.11,<4",
+		"menatwork/ctocommunication":"~1.2 || ~2.0"
 	},
 	"autoload":{
 		"classmap":["system/"]
 	},
-	"replace": {
-		"contao-legacy/syncacc": "*"
+	"replace":{
+		"contao-legacy/syncacc":"*"
 	},
 	"extra":{
-		"contao": {
-			"symlinks":{
-				"system/modules/syncAccClient": "system/modules/syncAccClient"
+		"contao":{
+			"sources":{
+				"system/modules/syncAccClient":"system/modules/syncAccClient"
 			}
 		}
 	}
