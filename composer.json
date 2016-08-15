@@ -21,7 +21,7 @@
 	"require":{
 		"php":">=5.3",
 		"contao/core":">=2.11,<4",
-		"menatwork/ctocommunication":"~1.2"
+		"menatwork/ctocommunication":"~1.2 || ~2.0"
 	},
 	"autoload":{
 		"classmap":["system/"]
