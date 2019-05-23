@@ -27,6 +27,6 @@
     }
   },
   "extra": {
-    "contao-manager-plugin": "MenAtWork\\MultiColumnWizardBundle\\ContaoManager\\Plugin"
+    "contao-manager-plugin": "SyncAccClientBundle\\ContaoManager\\Plugin"
   }
 }
