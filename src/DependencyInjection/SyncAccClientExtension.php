@@ -26,6 +26,29 @@ class SyncAccClientExtension extends Extension
     /**
      * {@inheritdoc}
      */
+    public function getAlias()
+    {
+        return 'syncaccclient-bundle';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        // Add the resource to the container
+        parent::getConfiguration($config, $container);
+        return new Configuration(
+            $container->getParameter('kernel.debug'),
+            $container->getParameter('kernel.project_dir'),
+            $container->getParameter('kernel.root_dir'),
+            $container->getParameter('kernel.default_locale')
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $mergedConfig, ContainerBuilder $container)
     {
         // Load the configurations.

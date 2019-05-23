@@ -13,7 +13,7 @@ class Member
     /**
      * Remove synchronised fields from palettes
      *
-     * @param \DataContainer $dc
+     * @param DataContainer $dc
      */
     public function disableSpecialFieldsFromSyncMember(DataContainer $dc)
     {
@@ -35,8 +35,6 @@ class Member
                     $GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
                 }
             }
-
-
         }
     }
 
