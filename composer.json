@@ -1,39 +1,32 @@
 {
-	"name":"menatwork/syncacc",
-	"description":"Synchronize user and member",
-	"keywords":["synchronization","communication","framework"],
-	"type":"contao-module",
-	"license":"LGPL-3.0+",
-	"authors":[
-		{
-			"name":"Andreas Isaak",
-			"email":"isaak@men-at-work.de",
-			"homepage":"http://www.men-at-work.de",
-			"role":"Developer"
-		},
-		{
-			"name":"Stefan Heimes",
-			"email":"heimes@men-at-work.de",
-			"homepage":"http://www.men-at-work.de",
-			"role":"Developer"
-		}
-	],
-	"require":{
-		"php":">=5.3",
-		"contao/core":">=2.11,<4",
-		"menatwork/ctocommunication":"~1.2 || ~2.0"
-	},
-	"autoload":{
-		"classmap":["system/"]
-	},
-	"replace":{
-		"contao-legacy/syncacc":"*"
-	},
-	"extra":{
-		"contao":{
-			"sources":{
-				"system/modules/syncAccClient":"system/modules/syncAccClient"
-			}
-		}
-	}
+  "name": "menatwork/syncaccclien-bundle",
+  "type": "contao-bundle",
+  "description": "Synchronize user and member",
+  "keywords": [
+    "synchronization",
+    "communication",
+    "framework"
+  ],
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Stefan Heimes",
+      "email": "heimes@men-at-work.de",
+      "homepage": "http://www.men-at-work.de",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "contao/core-bundle": "^4.4.8",
+    "menatwork/ctocommunication": "^3.0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "SyncAccClientBundle\\": "src"
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "MenAtWork\\MultiColumnWizardBundle\\ContaoManager\\Plugin"
+  }
 }
