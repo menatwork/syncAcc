@@ -1,44 +1,42 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stefan.heimes
- * Date: 28.10.2015
- * Time: 11:10
- */
 
-namespace SyncAcc\Client\Contao\Table;
+namespace SyncAccClientBundle\Contao\Table;
 
+use Contao\Backend;
+use Contao\BackendUser;
+use Contao\Database;
+use Contao\DataContainer;
+use Contao\Message;
 
 class Member
 {
-
     /**
      * Remove synchronised fields from palettes
      *
      * @param \DataContainer $dc
      */
-    public function disableSpecialFieldsFromSyncMember(\DataContainer $dc)
+    public function disableSpecialFieldsFromSyncMember(DataContainer $dc)
     {
-        $objMember = \Database::getInstance()
+        $objMember = Database::getInstance()
             ->prepare('SELECT * FROM `tl_member` WHERE id = ?')
             ->execute($dc->id);
 
         if ($objMember->syncacc == true) {
-			\Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
-			
-			$backendUser = \BackendUser::getInstance();
+            Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
+
+            $backendUser = BackendUser::getInstance();
             $backendUser->authenticate();
 
-			if(!empty($GLOBALS['SyncAcc']['sa']) && in_array($backendUser->id, $GLOBALS['SyncAcc']['sa'])){
-				\Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync_sa']);
-			} else {
-				$arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
-				foreach ($arrDisableFields AS $field) {
-					$GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
-				}
-			}
-			
-            
+            if (!empty($GLOBALS['SyncAcc']['sa']) && in_array($backendUser->id, $GLOBALS['SyncAcc']['sa'])) {
+                Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync_sa']);
+            } else {
+                $arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
+                foreach ($arrDisableFields AS $field) {
+                    $GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
+                }
+            }
+
+
         }
     }
 
@@ -79,7 +77,7 @@ class Member
             }
 
             $args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'%ssystem/themes/%s/images/%s.gif\')" data-icon="%s.gif" data-icon-disabled="%s.gif">&nbsp;</div>',
-                TL_ASSETS_URL, \Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
+                TL_ASSETS_URL, Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
 
             return $args;
         }

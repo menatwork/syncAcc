@@ -16,7 +16,7 @@
 
 // Get User Group
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_USERGROUP"] = array(
-    "class" => 'SyncAcc\Client\Management\Group',
+    "class" => 'SyncAccClientBundle\Management\Group',
     "function" => "getUserGroups",
     "typ" => "POST",
     "parameter" => FALSE,
@@ -24,7 +24,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_USERGROUP"] = array(
 
 // Get Member Group
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_MEMBERGROUP"] = array(
-    "class" => 'SyncAcc\Client\Management\Group',
+    "class" => 'SyncAccClientBundle\Management\Group',
     "function" => "getMemberGroups",
     "typ" => "POST",
     "parameter" => FALSE,
@@ -32,7 +32,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_MEMBERGROUP"] = array(
 
 // Get User
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_GET_USERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "getUsers",
     "typ" => "POST",
     "parameter" => FALSE,
@@ -40,7 +40,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_GET_USERS"] = array(
 
 // Get Member
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_GET_MEMBERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "getMembers",
     "typ" => "POST",
     "parameter" => FALSE,
@@ -48,7 +48,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_GET_MEMBERS"] = array(
 
 // Set User
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_USERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "setUsers",
     "typ" => "POST",
     "parameter" => array('user', 'singleUpdate'),
@@ -56,7 +56,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_USERS"] = array(
 
 // Delete Users
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_DELETE_USERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "deleteUsers",
     "typ" => "POST",
     "parameter" => array('users'),
@@ -64,7 +64,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_DELETE_USERS"] = array(
 
 // Set Member
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_MEMBERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "setMembers",
     "typ" => "POST",
     "parameter" => array('member', 'singleUpdate'),
@@ -72,7 +72,7 @@ $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_SET_MEMBERS"] = array(
 
 // Delete Member
 $GLOBALS["CTOCOM_FUNCTIONS"]["SYNCACC_DELETE_MEMBERS"] = array(
-    "class" => 'SyncAcc\Client\Management\User',
+    "class" => 'SyncAccClientBundle\Management\User',
     "function" => "deleteMembers",
     "typ" => "POST",
     "parameter" => array('members'),

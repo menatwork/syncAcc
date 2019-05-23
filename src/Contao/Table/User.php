@@ -1,13 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stefan.heimes
- * Date: 28.10.2015
- * Time: 11:10
- */
 
-namespace SyncAcc\Client\Contao\Table;
+namespace SyncAccClientBundle\Contao\Table;
 
+use Contao\Backend;
+use Contao\DataContainer;
+use Contao\Message;
 
 class User
 {
@@ -16,14 +13,14 @@ class User
      *
      * @param \DataContainer $dc
      */
-    public function disableSpecialFieldsFromSyncUser(\DataContainer $dc)
+    public function disableSpecialFieldsFromSyncUser(DataContainer $dc)
     {
         $objUser = \Database::getInstance()
             ->prepare('SELECT * FROM `tl_user` WHERE id = ?')
             ->execute($dc->id);
 
         if ($objUser->syncacc == true) {
-			\Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
+            Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
             $arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['user'];
             foreach ($arrDisableFields AS $field) {
                 $GLOBALS['TL_DCA']['tl_user']['fields'][$field]['eval']['readonly'] = true;
@@ -68,7 +65,7 @@ class User
             }
 
             $args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'%ssystem/themes/%s/images/%s.gif\')" data-icon="%s.gif" data-icon-disabled="%s.gif">&nbsp;</div>',
-                TL_ASSETS_URL, \Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
+                TL_ASSETS_URL, Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
 
             return $args;
         }

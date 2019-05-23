@@ -1,16 +1,8 @@
 <?php
 
-/**
- * Contao Open Source CMS
- * PHP version 5
- *
- * @copyright  MEN AT WORK 2011
- * @package    syncAccClient
- * @license    GNU/LGPL
- * @filesource
- */
+namespace SyncAccClientBundle\Management;
 
-namespace SyncAcc\Client\Management;
+use Contao\Database;
 
 class User
 {
@@ -41,7 +33,7 @@ class User
      */
     public function getUsers()
     {
-        return \Database::getInstance()
+        return Database::getInstance()
             ->prepare("SELECT * FROM `tl_user`")
             ->execute()
             ->fetchAllAssoc();
@@ -64,7 +56,7 @@ class User
      */
     public function getMembers()
     {
-        return \Database::getInstance()
+        return Database::getInstance()
             ->prepare("SELECT * FROM `tl_member`")
             ->execute()
             ->fetchAllAssoc();
@@ -121,7 +113,7 @@ class User
             }
 
             if ($boolUpdateInsert) {
-                $test = \Database::getInstance()
+                $test = Database::getInstance()
                     ->prepare("INSERT INTO `tl_$strAccType` %s ON DUPLICATE KEY UPDATE " . implode(', ',
                             $arrUpdateQuery))
                     ->set($arrAcc)
@@ -129,7 +121,7 @@ class User
             }
         }
 
-        $objAcc = \Database::getInstance()
+        $objAcc = Database::getInstance()
             ->prepare("SELECT id, username FROM `tl_$strAccType` WHERE syncacc = 1 AND sync_acc_master = ?")
             ->execute($serverID);
 
@@ -142,9 +134,9 @@ class User
             unset($arrClientAcc[$arrAcc['username']]);
         }
 
-		// Only run this for the big update.
+        // Only run this for the big update.
         if ($singleUpdate == false && count($arrClientAcc) > 0) {
-            \Database::getInstance()
+            Database::getInstance()
                 ->prepare("DELETE FROM `tl_$strAccType` WHERE id IN (" . implode(',', $arrClientAcc) . ")")
                 ->execute();
         }

@@ -1,17 +1,8 @@
 <?php
 
-/**
- * Contao Open Source CMS
- *
- * PHP version 5
- *
- * @copyright  MEN AT WORK 2013
- * @package    syncAccClient
- * @license    GNU/LGPL
- * @filesource
- */
+namespace SyncAccClientBundle\Management;
 
-namespace SyncAcc\Client\Management;
+use Contao\Database;
 
 class Group
 {
@@ -23,7 +14,7 @@ class Group
      */
     public function getUserGroups()
     {
-        return \Database::getInstance()
+        return Database::getInstance()
             ->prepare("SELECT * FROM `tl_user_group`")
             ->execute()
             ->fetchAllAssoc();
@@ -36,7 +27,7 @@ class Group
      */
     public function getMemberGroups()
     {
-        return \Database::getInstance()
+        return Database::getInstance()
             ->prepare("SELECT * FROM `tl_member_group`")
             ->execute()
             ->fetchAllAssoc();
