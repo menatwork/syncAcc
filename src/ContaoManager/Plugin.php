@@ -25,6 +25,7 @@ class Plugin implements BundlePluginInterface
                     [
                         ContaoCoreBundle::class,
                         ContaoManagerBundle::class,
+                        CtoCommunicationBundle::class
                     ]
                 )
                 ->setReplace(
