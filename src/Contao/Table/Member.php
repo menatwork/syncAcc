@@ -13,7 +13,7 @@ class Member
     /**
      * Remove synchronised fields from palettes
      *
-     * @param \DataContainer $dc
+     * @param DataContainer $dc
      */
     public function disableSpecialFieldsFromSyncMember(DataContainer $dc)
     {
@@ -35,8 +35,6 @@ class Member
                     $GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
                 }
             }
-
-
         }
     }
 
@@ -59,13 +57,13 @@ class Member
             }
 
             if (version_compare(VERSION, '2.10', '<')) {
-                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'system/modules/syncAccClient/assets/images/%s.gif\');">%s</div>',
+                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'bundles/syncaccclient/images/%s.gif\');">%s</div>',
                     $image, $label);
             } elseif (version_compare(VERSION, '2.11', '<')) {
-                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'%ssystem/modules/syncAccClient/assets/images/%s.gif\');">%s</div>',
+                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'%sbundles/syncaccclient/images/%s.gif\');">%s</div>',
                     TL_SCRIPT_URL, $image, $label);
             } else {
-                $args[0] = sprintf('<div class="list_icon_new" style="width:21px;background-image:url(\'%ssystem/modules/syncAccClient/assets/images/%s.gif\')">&nbsp;</div>',
+                $args[0] = sprintf('<div class="list_icon_new" style="width:21px;background-image:url(\'%sbundles/syncaccclient/images/%s.gif\')">&nbsp;</div>',
                     TL_SCRIPT_URL, $image);
                 return $args;
             }
