@@ -3,6 +3,7 @@
 namespace SyncAccClientBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
+use Contao\CoreBundle\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -28,7 +29,7 @@ class SyncAccClientExtension extends Extension
      */
     public function getAlias()
     {
-        return 'syncaccclient-bundle';
+        return 'sync_acc_client';
     }
 
     /**
