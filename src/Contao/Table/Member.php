@@ -1,44 +1,40 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stefan.heimes
- * Date: 28.10.2015
- * Time: 11:10
- */
 
-namespace SyncAcc\Client\Contao\Table;
+namespace SyncAccClientBundle\Contao\Table;
 
+use Contao\Backend;
+use Contao\BackendUser;
+use Contao\Database;
+use Contao\DataContainer;
+use Contao\Message;
 
 class Member
 {
-
     /**
      * Remove synchronised fields from palettes
      *
-     * @param \DataContainer $dc
+     * @param DataContainer $dc
      */
-    public function disableSpecialFieldsFromSyncMember(\DataContainer $dc)
+    public function disableSpecialFieldsFromSyncMember(DataContainer $dc)
     {
-        $objMember = \Database::getInstance()
+        $objMember = Database::getInstance()
             ->prepare('SELECT * FROM `tl_member` WHERE id = ?')
             ->execute($dc->id);
 
         if ($objMember->syncacc == true) {
-			\Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
-			
-			$backendUser = \BackendUser::getInstance();
+            Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync']);
+
+            $backendUser = BackendUser::getInstance();
             $backendUser->authenticate();
 
-			if(!empty($GLOBALS['SyncAcc']['sa']) && in_array($backendUser->id, $GLOBALS['SyncAcc']['sa'])){
-				\Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync_sa']);
-			} else {
-				$arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
-				foreach ($arrDisableFields AS $field) {
-					$GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
-				}
-			}
-			
-            
+            if (!empty($GLOBALS['SyncAcc']['sa']) && in_array($backendUser->id, $GLOBALS['SyncAcc']['sa'])) {
+                Message::addInfo($GLOBALS['TL_LANG']['syncAcc']['under_sync_sa']);
+            } else {
+                $arrDisableFields = $GLOBALS['SYNCACC']['SYNC_FIELDS']['member'];
+                foreach ($arrDisableFields AS $field) {
+                    $GLOBALS['TL_DCA']['tl_member']['fields'][$field]['eval']['readonly'] = true;
+                }
+            }
         }
     }
 
@@ -61,13 +57,13 @@ class Member
             }
 
             if (version_compare(VERSION, '2.10', '<')) {
-                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'system/modules/syncAccClient/assets/images/%s.gif\');">%s</div>',
+                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'bundles/syncaccclient/images/%s.gif\');">%s</div>',
                     $image, $label);
             } elseif (version_compare(VERSION, '2.11', '<')) {
-                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'%ssystem/modules/syncAccClient/assets/images/%s.gif\');">%s</div>',
+                return sprintf('<div class="list_icon" style="padding-left:26px;background-image:url(\'%sbundles/syncaccclient/images/%s.gif\');">%s</div>',
                     TL_SCRIPT_URL, $image, $label);
             } else {
-                $args[0] = sprintf('<div class="list_icon_new" style="width:21px;background-image:url(\'%ssystem/modules/syncAccClient/assets/images/%s.gif\')">&nbsp;</div>',
+                $args[0] = sprintf('<div class="list_icon_new" style="width:21px;background-image:url(\'%sbundles/syncaccclient/images/%s.gif\')">&nbsp;</div>',
                     TL_SCRIPT_URL, $image);
                 return $args;
             }
@@ -79,7 +75,7 @@ class Member
             }
 
             $args[0] = sprintf('<div class="list_icon_new" style="background-image:url(\'%ssystem/themes/%s/images/%s.gif\')" data-icon="%s.gif" data-icon-disabled="%s.gif">&nbsp;</div>',
-                TL_ASSETS_URL, \Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
+                TL_ASSETS_URL, Backend::getTheme(), $image, rtrim($image, '_'), rtrim($image, '_') . '_');
 
             return $args;
         }

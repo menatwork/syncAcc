@@ -16,7 +16,7 @@
  */
 if (TL_MODE == 'BE') {
     $GLOBALS['TL_DCA']['tl_member']['config']['onload_callback'][] = array(
-        'SyncAcc\Client\Contao\Table\Member',
+        'SyncAccClientBundle\Contao\Table\Member',
         'disableSpecialFieldsFromSyncMember'
     );
 }
@@ -25,6 +25,6 @@ if (TL_MODE == 'BE') {
  * Listing
  */
 $GLOBALS['TL_DCA']['tl_member']['list']['label']['label_callback'] = array(
-    'SyncAcc\Client\Contao\Table\Member',
+    'SyncAccClientBundle\Contao\Table\Member',
     'addIconExt'
 );
