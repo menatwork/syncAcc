@@ -15,7 +15,7 @@
  * Config
  */
 $GLOBALS['TL_DCA']['tl_user']['config']['onload_callback'][] = array(
-    'SyncAcc\Client\Contao\Table\User',
+    'SyncAccClientBundle\Contao\Table\User',
     'disableSpecialFieldsFromSyncUser'
 );
 
@@ -23,6 +23,6 @@ $GLOBALS['TL_DCA']['tl_user']['config']['onload_callback'][] = array(
  * Listing
  */
 $GLOBALS['TL_DCA']['tl_user']['list']['label']['label_callback'] = array(
-    'SyncAcc\Client\Contao\Table\User',
+    'SyncAccClientBundle\Contao\Table\User',
     'addIconExt'
 );
