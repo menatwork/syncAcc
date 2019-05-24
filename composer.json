@@ -1,5 +1,5 @@
 {
-  "name": "menatwork/syncaccclient-bundle",
+  "name": "menatwork/contao-syncaccclient-bundle",
   "type": "contao-bundle",
   "description": "Synchronize user and member",
   "keywords": [
